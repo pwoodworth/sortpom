@@ -47,11 +47,23 @@ public class VerifyMojo extends AbstractMojo {
     private String sortDependencies;
 
     /**
+     * Comma-separated ordered list how dependencies should be sorted.
+     */
+    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "${project.groupId}")
+    private String dependencyPriorityGroups;
+
+    /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
      * The list can be separated by ",;:"
      */
     @Parameter(property = "sort.sortPlugins")
     private String sortPlugins;
+
+    /**
+     * Comma-separated ordered list how plugins should be sorted.
+     */
+    @Parameter(property = "sort.pluginPriorityGroups")
+    private String pluginPriorityGroups;
 
     /**
      * Should the Maven pom properties be sorted alphabetically. Affects both
@@ -168,6 +180,8 @@ public class VerifyMojo extends AbstractMojo {
                     .setSortProperties(sortProperties)
                     .setSortModules(sortModules)
                     .setVerifyFail(verifyFail)
+                    .setPrioritizedDependencyGroups(dependencyPriorityGroups)
+                    .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

@@ -33,7 +33,7 @@ public class DependencySortOrder {
      */
     public DependencySortOrder(String childElementNameList, String prioritizedGroups) {
         this.childElementNameList = childElementNameList == null ? "" : childElementNameList;
-        this.prioritizedGroups = prioritizedGroups;
+        this.prioritizedGroups = prioritizedGroups == null ? "" : prioritizedGroups;
     }
 
     /**
@@ -65,7 +65,8 @@ public class DependencySortOrder {
     }
 
     public List<String> getPrioritizedGroups() {
-        return Collections.unmodifiableList(Arrays.asList(prioritizedGroups.split(",")));
+        String[] split = prioritizedGroups.split(",");
+        return Collections.unmodifiableList(Arrays.asList(split));
     }
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */

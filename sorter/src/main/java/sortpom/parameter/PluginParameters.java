@@ -5,7 +5,6 @@ import java.io.File;
 /** Contains all parameters that are sent to the plugin */
 public class PluginParameters {
 
-    public final String groupId;
     public final File pomFile;
     public final boolean createBackupFile;
     public final String backupFileExtension;
@@ -25,8 +24,7 @@ public class PluginParameters {
     public final VerifyFailType verifyFailType;
     public final boolean ignoreLineSeparators;
 
-    private PluginParameters(String groupId,
-                             File pomFile,
+    private PluginParameters(File pomFile,
                              boolean createBackupFile,
                              String backupFileExtension,
                              String violationFilename,
@@ -44,7 +42,6 @@ public class PluginParameters {
                              boolean sortModules,
                              VerifyFailType verifyFailType,
                              boolean ignoreLineSeparators) {
-        this.groupId = groupId;
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
@@ -73,7 +70,6 @@ public class PluginParameters {
     /** Builder for the PluginParameters class */
     public static class Builder {
 
-        private String groupId;
         private File pomFile;
         private boolean createBackupFile;
         private String backupFileExtension;
@@ -96,11 +92,6 @@ public class PluginParameters {
         private String prioritizedPluginGroups;
 
         private Builder() {
-        }
-
-        public Builder setGroupId(String groupId) {
-            this.groupId = groupId;
-            return this;
         }
 
         /** Sets pomFile location */
@@ -197,7 +188,7 @@ public class PluginParameters {
 
         /** Build the PluginParameters instance */
         public PluginParameters build() {
-            return new PluginParameters(groupId, pomFile, createBackupFile, backupFileExtension, violationFilename,
+            return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,
                     encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                     predefinedSortOrder, customSortOrderFile,
                     new DependencySortOrder(sortDependencies, prioritizedDependencyGroups),

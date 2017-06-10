@@ -110,7 +110,7 @@ public class SortMojo extends AbstractMojo {
     /**
      * Comma-separated ordered list how dependencies should be sorted.
      */
-    @Parameter(property = "sort.dependencyPriorityGroups")
+    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "${project.groupId}")
     private String dependencyPriorityGroups;
 
     /**
@@ -178,7 +178,6 @@ public class SortMojo extends AbstractMojo {
                     .setSortProperties(sortProperties)
                     .setSortModules(sortModules)
                     .setTriggers(ignoreLineSeparators)
-                    .setGroupId(mavenProject.getGroupId())
                     .setPrioritizedDependencyGroups(dependencyPriorityGroups)
                     .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();

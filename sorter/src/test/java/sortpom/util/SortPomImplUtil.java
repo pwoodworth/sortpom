@@ -219,7 +219,6 @@ public class SortPomImplUtil {
 
     private PluginParameters getPluginParameters() {
         return PluginParameters.builder()
-                .setGroupId(groupId)
                 .setPomFile(testpom)
                 .setFileOutput(true, testPomBackupExtension, violationFile)
                 .setEncoding(encoding)
