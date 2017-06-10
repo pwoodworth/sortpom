@@ -31,6 +31,7 @@ public class SortPomImplUtil {
     private String encoding = TestHandler.UTF_8;
     private File testpom;
     private String violationFile;
+    private String groupId;
 
     private SortPomImplUtil() {
     }
@@ -125,6 +126,11 @@ public class SortPomImplUtil {
         return index;
     }
 
+    public SortPomImplUtil setGroupId(String groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
     public SortPomImplUtil nrOfIndentSpace(int indent) {
         nrOfIndentSpace = indent;
         return this;
@@ -213,15 +219,20 @@ public class SortPomImplUtil {
 
     private PluginParameters getPluginParameters() {
         return PluginParameters.builder()
+                .setGroupId(groupId)
                 .setPomFile(testpom)
                 .setFileOutput(true, testPomBackupExtension, violationFile)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
+                .setSortDependencies(sortDependencies)
+                .setSortPlugins(sortPlugins)
+                .setSortProperties(sortProperties)
+                .setSortModules(sortModules)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)
+                .setPrioritizedDependencyGroups(groupId)
                 .build();
     }
 

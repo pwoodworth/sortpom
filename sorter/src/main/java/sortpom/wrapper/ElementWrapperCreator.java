@@ -16,7 +16,7 @@ public class ElementWrapperCreator {
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
-    
+
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
@@ -35,9 +35,7 @@ public class ElementWrapperCreator {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {
             if (isDependencyElement(element)) {
-                DependencySortedWrapper dependencySortedWrapper = new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-                dependencySortedWrapper.setSortOrder(sortDependencies);
-                return dependencySortedWrapper;
+                return new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element), sortDependencies);
             }
             if (isPluginElement(element)) {
                 PluginSortedWrapper pluginSortedWrapper = new PluginSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));

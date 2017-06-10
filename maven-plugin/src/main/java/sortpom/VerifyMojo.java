@@ -163,7 +163,10 @@ public class VerifyMojo extends AbstractMojo {
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
+                    .setSortDependencies(sortDependencies)
+                    .setSortPlugins(sortPlugins)
+                    .setSortProperties(sortProperties)
+                    .setSortModules(sortModules)
                     .setVerifyFail(verifyFail)
                     .build();
 

@@ -35,7 +35,11 @@ public class ElementToStringTest {
                 .setFormatting("\r\n", true, true)
                 .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();
+                .setSortDependencies("scope,groupId,artifactId")
+                .setSortPlugins("groupId,artifactId")
+                .setSortProperties(true)
+                .setSortModules(true)
+                .build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

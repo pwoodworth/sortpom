@@ -1,5 +1,6 @@
 package sortpom.wrapper.content;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
 
@@ -16,32 +17,34 @@ import java.util.function.Function;
 public class ChildElementSorter {
     static final ChildElementSorter EMPTY_SORTER = new ChildElementSorter();
     private static final String GROUP_ID_NAME = "GROUPID";
-    
     private final LinkedHashMap<String, String> childElementTextMappedBySortedNames = new LinkedHashMap<>();
+    private final List<String> prioritizedGroups;
 
     public ChildElementSorter(DependencySortOrder dependencySortOrder, List<Element> children) {
+        this.prioritizedGroups = dependencySortOrder.getPrioritizedGroups();
         Collection<String> childElementNames = dependencySortOrder.getChildElementNames();
 
-        childElementNames.forEach(name -> 
+        childElementNames.forEach(name ->
                 childElementTextMappedBySortedNames.put(name.toUpperCase(), ""));
 
-        children.forEach(element -> 
+        children.forEach(element ->
                 childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getText()));
     }
 
     private ChildElementSorter() {
+        this.prioritizedGroups = Collections.emptyList();
     }
 
     boolean compareTo(ChildElementSorter otherChildElementSorter) {
-        Function<Map.Entry<String, String>, String> getOtherTextFunc = entry ->  
+        Function<Map.Entry<String, String>, String> getOtherTextFunc = entry ->
                 otherChildElementSorter.childElementTextMappedBySortedNames.get(entry.getKey());
-        
+
         int compare = childElementTextMappedBySortedNames.entrySet().stream()
                 .map(entry -> compareTexts(entry.getKey(), entry.getValue(), getOtherTextFunc.apply(entry)))
                 .filter(i -> i != 0)
                 .findFirst()
                 .orElse(0);
-        
+
         return compare < 0;
     }
 
@@ -49,10 +52,23 @@ public class ChildElementSorter {
         if ("scope".equalsIgnoreCase(key)) {
             return compareScope(text, otherText);
         }
+        if (GROUP_ID_NAME.equalsIgnoreCase(key)) {
+            text = raisePrecedence(text, prioritizedGroups);
+            otherText = raisePrecedence(otherText, prioritizedGroups);
+        }
+
         return text.compareToIgnoreCase(otherText);
     }
 
-    
+    private String raisePrecedence(String text, List<String> match) {
+        String prefix = "a.";
+        if (match.indexOf(text) > -1) {
+            text = prefix + text;
+        }
+        return text;
+    }
+
+
     private int compareScope(String childElementText, String otherChildElementText) {
         return Scope.getScope(childElementText).compareTo(Scope.getScope(otherChildElementText));
     }

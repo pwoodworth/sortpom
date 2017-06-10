@@ -1,5 +1,6 @@
 package sortpom;
 
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -19,6 +20,10 @@ import java.io.File;
 @Mojo(name = "sort", threadSafe = true, defaultPhase = LifecyclePhase.VALIDATE)
 @SuppressWarnings({"UnusedDeclaration", "JavaDoc"})
 public class SortMojo extends AbstractMojo {
+
+    @Parameter(defaultValue="${project}", readonly=true, required=true)
+    private MavenProject mavenProject;
+
     /**
      * This is the File instance that refers to the location of the pom that
      * should be sorted.
@@ -103,11 +108,23 @@ public class SortMojo extends AbstractMojo {
     private String sortDependencies;
 
     /**
+     * Comma-separated ordered list how dependencies should be sorted.
+     */
+    @Parameter(property = "sort.dependencyPriorityGroups")
+    private String dependencyPriorityGroups;
+
+    /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
      * The list can be separated by ",;:"
      */
     @Parameter(property = "sort.sortPlugins")
     private String sortPlugins;
+
+    /**
+     * Comma-separated ordered list how plugins should be sorted.
+     */
+    @Parameter(property = "sort.pluginPriorityGroups")
+    private String pluginPriorityGroups;
 
     /**
      * Should the Maven pom properties be sorted alphabetically. Affects both
@@ -156,8 +173,14 @@ public class SortMojo extends AbstractMojo {
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
+                    .setSortDependencies(sortDependencies)
+                    .setSortPlugins(sortPlugins)
+                    .setSortProperties(sortProperties)
+                    .setSortModules(sortModules)
                     .setTriggers(ignoreLineSeparators)
+                    .setGroupId(mavenProject.getGroupId())
+                    .setPrioritizedDependencyGroups(dependencyPriorityGroups)
+                    .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

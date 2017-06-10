@@ -3,6 +3,7 @@ package sortpom.parameter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * The plugin parameter 'sortDependencies' is parsed by this class to determine if dependencies should be sorted
@@ -13,6 +14,7 @@ import java.util.Collections;
  */
 public class DependencySortOrder {
     private final String childElementNameList;
+    private final String prioritizedGroups;
     private Collection<String> childElementNames;
 
     /**
@@ -21,7 +23,17 @@ public class DependencySortOrder {
      * @param childElementNameList the plugin parameter argument
      */
     public DependencySortOrder(String childElementNameList) {
+        this(childElementNameList, "");
+    }
+
+    /**
+     * Create an instance of the DependencySortOrder
+     *
+     * @param childElementNameList the plugin parameter argument
+     */
+    public DependencySortOrder(String childElementNameList, String prioritizedGroups) {
         this.childElementNameList = childElementNameList == null ? "" : childElementNameList;
+        this.prioritizedGroups = prioritizedGroups;
     }
 
     /**
@@ -50,6 +62,10 @@ public class DependencySortOrder {
             return new String[0];
         }
         return list.split(";|,|:");
+    }
+
+    public List<String> getPrioritizedGroups() {
+        return Collections.unmodifiableList(Arrays.asList(prioritizedGroups.split(",")));
     }
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */

@@ -16,16 +16,14 @@ public class DependencySortedWrapper extends SortedWrapper {
 
     /**
      * Instantiates a new child element sorted wrapper with a dependency element.
-     *
      * @param element   the element
      * @param sortOrder the sort order
      */
-    public DependencySortedWrapper(final Element element, final int sortOrder) {
-        super(element, sortOrder);
-    }
-
     @SuppressWarnings("unchecked")
-    public void setSortOrder(DependencySortOrder childElementNames) {
+    public DependencySortedWrapper(final Element element,
+                                   final int sortOrder,
+                                   DependencySortOrder childElementNames) {
+        super(element, sortOrder);
         List<Element> children = (List<Element>) getContent().getChildren();
         this.childElementSorter = new ChildElementSorter(childElementNames, children);
     }
