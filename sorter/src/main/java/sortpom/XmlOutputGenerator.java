@@ -61,6 +61,7 @@ public class XmlOutputGenerator {
         prettyFormat.setEncoding(encoding);
         prettyFormat.setLineSeparator("\n");
         prettyFormat.setIndent(indentCharacters);
+        prettyFormat.setTextMode(Format.TextMode.TRIM);
         return prettyFormat;
     }
 
