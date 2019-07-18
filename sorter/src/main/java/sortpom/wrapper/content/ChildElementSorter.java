@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 /**
  * @author bjorn
@@ -61,11 +62,13 @@ public class ChildElementSorter {
     }
 
     private String raisePrecedence(String text, List<String> match) {
-        String prefix = "a.";
-        if (match.indexOf(text) > -1) {
-            text = prefix + text;
-        }
-        return text;
+        return IntStream.range(0, match.size())
+                .filter(index -> {
+                    String s = match.get(index);
+                    return text.equals(s) || text.startsWith(s + ".");
+                })
+                .mapToObj(ii -> String.format("!%03d%s", ii, text))
+                .findFirst().orElse(text);
     }
 
 

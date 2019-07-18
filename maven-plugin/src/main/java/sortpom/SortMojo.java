@@ -1,11 +1,11 @@
 package sortpom;
 
-import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import sortpom.exception.ExceptionConverter;
 import sortpom.logger.MavenLogger;
 import sortpom.parameter.PluginParameters;
@@ -110,8 +110,14 @@ public class SortMojo extends AbstractMojo {
     /**
      * Comma-separated ordered list how dependencies should be sorted.
      */
-    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "${project.groupId}")
+    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "")
     private String dependencyPriorityGroups;
+
+    /**
+     * Should the local module's groupId always be at the top of the dependencies sort order.
+     */
+    @Parameter(property = "sort.prioritizeLocalGroupId", defaultValue = "false")
+    private boolean prioritizeLocalGroupId;
 
     /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
@@ -167,6 +173,7 @@ public class SortMojo extends AbstractMojo {
     public void setup() throws MojoFailureException {
         new ExceptionConverter(() -> {
             PluginParameters pluginParameters = PluginParameters.builder()
+                    .setGroupId(mavenProject.getGroupId())
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, null)
                     .setEncoding(encoding)
@@ -178,10 +185,10 @@ public class SortMojo extends AbstractMojo {
                     .setSortProperties(sortProperties)
                     .setSortModules(sortModules)
                     .setTriggers(ignoreLineSeparators)
+                    .setPrioritizeLocalGroupId(prioritizeLocalGroupId)
                     .setPrioritizedDependencyGroups(dependencyPriorityGroups)
                     .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
-
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
         }).executeAndConvertException();
     }

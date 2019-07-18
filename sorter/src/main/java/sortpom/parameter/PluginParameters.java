@@ -90,6 +90,8 @@ public class PluginParameters {
         private boolean ignoreLineSeparators;
         private String prioritizedDependencyGroups;
         private String prioritizedPluginGroups;
+        private String groupId;
+        private boolean prioritizeLocalGroupId;
 
         private Builder() {
         }
@@ -186,12 +188,26 @@ public class PluginParameters {
             return this;
         }
 
+        public Builder setGroupId(String groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+
+        public Builder setPrioritizeLocalGroupId(boolean prioritizeLocalGroupId) {
+            this.prioritizeLocalGroupId = prioritizeLocalGroupId;
+            return this;
+        }
+
         /** Build the PluginParameters instance */
         public PluginParameters build() {
+            String pdgs = prioritizedDependencyGroups;
+            if (prioritizeLocalGroupId) {
+                pdgs = groupId + "," + pdgs;
+            }
             return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,
                     encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                     predefinedSortOrder, customSortOrderFile,
-                    new DependencySortOrder(sortDependencies, prioritizedDependencyGroups),
+                    new DependencySortOrder(sortDependencies, pdgs),
                     new DependencySortOrder(sortPlugins, prioritizedPluginGroups),
                     sortProperties, sortModules,
                     verifyFailType, ignoreLineSeparators);

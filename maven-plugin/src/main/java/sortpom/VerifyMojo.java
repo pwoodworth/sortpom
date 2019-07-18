@@ -5,6 +5,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import sortpom.exception.ExceptionConverter;
 import sortpom.logger.MavenLogger;
 import sortpom.parameter.PluginParameters;
@@ -19,6 +20,10 @@ import java.io.File;
 @Mojo(name = "verify", threadSafe = true, defaultPhase = LifecyclePhase.VALIDATE)
 @SuppressWarnings({"UnusedDeclaration"})
 public class VerifyMojo extends AbstractMojo {
+
+    @Parameter(defaultValue="${project}", readonly=true, required=true)
+    private MavenProject mavenProject;
+
     /**
      * This is the File instance that refers to the location of the pom that
      * should be sorted.
@@ -49,8 +54,14 @@ public class VerifyMojo extends AbstractMojo {
     /**
      * Comma-separated ordered list how dependencies should be sorted.
      */
-    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "${project.groupId}")
+    @Parameter(property = "sort.dependencyPriorityGroups", defaultValue = "")
     private String dependencyPriorityGroups;
+
+    /**
+     * Should the local module's groupId always be at the top of the dependencies sort order.
+     */
+    @Parameter(property = "sort.prioritizeLocalGroupId", defaultValue = "false")
+    private boolean prioritizeLocalGroupId;
 
     /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
@@ -169,6 +180,7 @@ public class VerifyMojo extends AbstractMojo {
         new ExceptionConverter(() -> {
 
             PluginParameters pluginParameters = PluginParameters.builder()
+                    .setGroupId(mavenProject.getGroupId())
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, violationFilename)
                     .setEncoding(encoding)
@@ -180,6 +192,7 @@ public class VerifyMojo extends AbstractMojo {
                     .setSortProperties(sortProperties)
                     .setSortModules(sortModules)
                     .setVerifyFail(verifyFail)
+                    .setPrioritizeLocalGroupId(prioritizeLocalGroupId)
                     .setPrioritizedDependencyGroups(dependencyPriorityGroups)
                     .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
