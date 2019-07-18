@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Basics -->
-  <groupId>org.emergent.sortpom</groupId>
+  <groupId>com.github.emergentdotorg</groupId>
   <artifactId>sortpom-parent</artifactId>
   <version>2.8.1-SNAPSHOT</version>
   <packaging>pom</packaging>
