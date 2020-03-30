@@ -495,7 +495,7 @@
 
   <scm>
     <connection>scm:git:https://github.com/emergentdotorg/sortpom.git</connection>
-    <developerConnection>scm:git:https://github.com/emergentdotorg/sortpom.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:emergentdotorg/sortpom.git</developerConnection>
     <url>https://github.com/emergentdotorg/sortpom</url>
     <tag>HEAD</tag>
   </scm>
