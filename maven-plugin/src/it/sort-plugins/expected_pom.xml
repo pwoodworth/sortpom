@@ -14,21 +14,6 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.github.ekryd.sortpom</groupId>
-        <artifactId>sortpom-maven-plugin</artifactId>
-        <version>@pom.version@</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>sort</goal>
-            </goals>
-            <configuration>
-              <sortPlugins>groupId,artifactId</sortPlugins>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
         <version>2.6.1</version>
@@ -46,6 +31,21 @@
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
         <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.emergent.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>@pom.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <configuration>
+              <sortPlugins>groupId,artifactId</sortPlugins>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

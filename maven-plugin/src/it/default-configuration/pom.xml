@@ -14,7 +14,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>com.github.ekryd.sortpom</groupId>
+        <groupId>org.emergent.sortpom</groupId>
         <artifactId>sortpom-maven-plugin</artifactId>
         <version>@pom.version@</version>
         <executions>

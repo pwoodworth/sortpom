@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Basics -->
-  <groupId>com.github.ekryd.sortpom</groupId>
+  <groupId>org.emergent.sortpom</groupId>
   <artifactId>sortpom-parent</artifactId>
   <version>2.11.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -55,7 +55,7 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>com.github.ekryd.sortpom</groupId>
+          <groupId>org.emergent.sortpom</groupId>
           <artifactId>sortpom-maven-plugin</artifactId>
           <version>2.11.0</version>
           <configuration>
@@ -483,24 +483,34 @@
       </roles>
       <timezone>+1</timezone>
     </developer>
+    <developer>
+      <id>pwoodworth</id>
+      <name>Patrick Woodworth</name>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/Ekryd/sortpom.git</connection>
-    <developerConnection>scm:git:https://github.com/Ekryd/sortpom.git</developerConnection>
-    <url>https://github.com/Ekryd/sortpom</url>
+    <connection>scm:git:https://github.com/emergentdotorg/sortpom.git</connection>
+    <developerConnection>scm:git:https://github.com/emergentdotorg/sortpom.git</developerConnection>
+    <url>https://github.com/emergentdotorg/sortpom</url>
     <tag>HEAD</tag>
   </scm>
+
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/Ekryd/sortpom/issues</url>
+    <url>https://github.com/emergentdotorg/sortpom/issues</url>
   </issueManagement>
 
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
+    <repository>
+      <id>github</id>
+      <name>GitHub Emergent.org Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/emergentdotorg/maven-repository</url>
+    </repository>
   </distributionManagement>
 
   <!-- Profiles -->

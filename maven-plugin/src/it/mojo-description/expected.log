@@ -1,6 +1,6 @@
 Name: SortPom Plugin
 Description: A Maven plugin that sorts the pom.xml file.
-Group Id: com.github.ekryd.sortpom
+Group Id: org.emergent.sortpom
 Artifact Id: sortpom-maven-plugin
 Version: @pom.version@
 Goal Prefix: sortpom

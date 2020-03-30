@@ -70,7 +70,7 @@
         <version>2.6.1</version>
       </plugin>
       <plugin>
-        <groupId>com.github.ekryd.sortpom</groupId>
+        <groupId>org.emergent.sortpom</groupId>
         <artifactId>sortpom-maven-plugin</artifactId>
         <version>@pom.version@</version>
         <executions>

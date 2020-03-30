@@ -37,6 +37,6 @@
   </profiles>
 
   <pluginGroups>
-    <pluginGroup>com.github.ekryd.sortpom</pluginGroup>
+    <pluginGroup>org.emergent.sortpom</pluginGroup>
   </pluginGroups>
 </settings>
