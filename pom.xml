@@ -140,6 +140,7 @@
             <useReleaseProfile>false</useReleaseProfile>
             <arguments>-Pdistribution</arguments>
             <goals>deploy</goals>
+            <tagNameFormat>@{project.version}</tagNameFormat>
           </configuration>
         </plugin>
 
