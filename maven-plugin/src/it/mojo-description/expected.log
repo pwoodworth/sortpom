@@ -49,6 +49,11 @@ sortpom:sort
       User property: sort.createBackupFile
       Should a backup copy be created for the sorted pom.
 
+    dependencyPriorityGroups
+      User property: sort.dependencyPriorityGroups
+      Comma-separated ordered list of groups that should be prioritized in
+      sort.
+
     encoding (Default: UTF-8)
       User property: sort.encoding
       Encoding for the files.
@@ -85,6 +90,10 @@ sortpom:sort
       Number of space characters to use as indentation. A value of -1 indicates
       that tab character should be used instead.
 
+    pluginPriorityGroups
+      User property: sort.pluginPriorityGroups
+      Comma-separated ordered list how plugins should be sorted.
+
     pomFile (Default: ${project.file})
       User property: sort.pomFile
       This is the File instance that refers to the location of the pom that
@@ -93,6 +102,11 @@ sortpom:sort
     predefinedSortOrder
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
+
+    prioritizeLocalGroupId (Default: false)
+      User property: sort.prioritizeLocalGroupId
+      Whether to automatically add the local group id to
+      dependencyPriorityGroups
 
     skip (Default: false)
       User property: sort.skip
@@ -140,6 +154,11 @@ sortpom:verify
       User property: sort.createBackupFile
       Should a backup copy be created for the sorted pom.
 
+    dependencyPriorityGroups
+      User property: sort.dependencyPriorityGroups
+      Comma-separated ordered list of groups that should be prioritized in
+      sort.
+
     encoding (Default: UTF-8)
       User property: sort.encoding
       Encoding for the files.
@@ -172,6 +191,10 @@ sortpom:verify
       Number of space characters to use as indentation. A value of -1 indicates
       that tab character should be used instead.
 
+    pluginPriorityGroups
+      User property: sort.pluginPriorityGroups
+      Comma-separated ordered list how plugins should be sorted.
+
     pomFile (Default: ${project.file})
       User property: sort.pomFile
       This is the File instance that refers to the location of the pom that
@@ -180,6 +203,11 @@ sortpom:verify
     predefinedSortOrder
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
+
+    prioritizeLocalGroupId (Default: false)
+      User property: sort.prioritizeLocalGroupId
+      Whether to automatically add the local group id to
+      dependencyPriorityGroups
 
     skip (Default: false)
       User property: sort.skip

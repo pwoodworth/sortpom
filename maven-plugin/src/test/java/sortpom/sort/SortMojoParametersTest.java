@@ -1,5 +1,6 @@
 package sortpom.sort;
 
+import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
@@ -33,6 +34,7 @@ public class SortMojoParametersTest {
         sortMojo = new SortMojo();
         new ReflectionHelper(sortMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");
+        new ReflectionHelper(sortMojo).setField(new MavenProject());
 
         sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
         ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);

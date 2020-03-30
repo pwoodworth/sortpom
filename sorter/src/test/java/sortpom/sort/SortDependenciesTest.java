@@ -16,7 +16,18 @@ public class SortDependenciesTest {
                 .defaultOrderFileName("custom_1.xml")
                 .sortDependencies("scope,GROUPID,artifactId")
                 .lineSeparator("\r\n")
+                .setGroupId("foo")
                 .testFiles("/SortDep_input_simpleWithScope.xml", "/SortDep_expected_simpleWithScope2.xml");
+    }
+
+    @Test
+    public final void scopeInSortDependenciesShouldSortByScope2() throws Exception {
+        SortPomImplUtil.create()
+                .defaultOrderFileName("custom_1.xml")
+                .sortDependencies("scope,GROUPID,artifactId")
+                .lineSeparator("\r\n")
+                .setGroupId("org.jdom")
+                .testFiles("/SortDepSimple2_input.xml", "/SortDepSimple_group_prioritized_expected.xml");
     }
 
     /**

@@ -4,6 +4,7 @@ import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class ChildElementSorter {
     private static final String GROUP_ID_NAME = "GROUPID";
 
     private final LinkedHashMap<String, String> childElementTextMappedBySortedNames = new LinkedHashMap<>();
+    private final List<String> prioritizedGroups;
 
     public ChildElementSorter(DependencySortOrder dependencySortOrder, List<Element> children) {
         Collection<String> childElementNames = dependencySortOrder.getChildElementNames();
@@ -27,9 +29,12 @@ public class ChildElementSorter {
 
         children.forEach(element ->
                 childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getText()));
+
+        this.prioritizedGroups = dependencySortOrder.getPrioritizedGroups();
     }
 
     private ChildElementSorter() {
+        this.prioritizedGroups = Collections.emptyList();
     }
 
     boolean compareTo(ChildElementSorter otherChildElementSorter) {
@@ -49,9 +54,23 @@ public class ChildElementSorter {
         if ("scope".equalsIgnoreCase(key)) {
             return compareScope(text, otherText);
         }
+        if (GROUP_ID_NAME.equalsIgnoreCase(key)) {
+            text = adjustGroupPrecedence(text);
+            otherText = adjustGroupPrecedence(otherText);
+        }
+
         return text.compareToIgnoreCase(otherText);
     }
 
+    private String adjustGroupPrecedence(String text) {
+        for (int index = 0; index < prioritizedGroups.size(); index++) {
+            String s = prioritizedGroups.get(index);
+            if (text.equals(s) || text.startsWith(s + ".")) {
+                return String.format("!%03d%s", index, text);
+            }
+        }
+        return text;
+    }
 
     private int compareScope(String childElementText, String otherChildElementText) {
         return Scope.getScope(childElementText).compareTo(Scope.getScope(otherChildElementText));

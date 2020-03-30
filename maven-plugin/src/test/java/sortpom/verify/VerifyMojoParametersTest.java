@@ -1,5 +1,6 @@
 package sortpom.verify;
 
+import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
@@ -35,6 +36,7 @@ public class VerifyMojoParametersTest {
         new ReflectionHelper(verifyMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(verifyMojo).setField("encoding", "UTF-8");
         new ReflectionHelper(verifyMojo).setField("verifyFail", "SORT");
+        new ReflectionHelper(verifyMojo).setField(new MavenProject());
 
         sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
         ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);

@@ -34,6 +34,10 @@ public class SortMojo extends AbstractParentMojo {
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setTriggers(ignoreLineSeparators)
+                    .setGroupId(mavenProject.getGroupId())
+                    .setPrioritizeLocalGroupId(prioritizeLocalGroupId)
+                    .setPrioritizedDependencyGroups(dependencyPriorityGroups)
+                    .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

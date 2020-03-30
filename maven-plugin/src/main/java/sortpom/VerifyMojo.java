@@ -33,6 +33,7 @@ public class VerifyMojo extends AbstractParentMojo {
         new ExceptionConverter(() -> {
 
             PluginParameters pluginParameters = PluginParameters.builder()
+                    .setGroupId(mavenProject.getGroupId())
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, violationFilename, keepTimestamp)
                     .setEncoding(encoding)
@@ -41,6 +42,9 @@ public class VerifyMojo extends AbstractParentMojo {
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setVerifyFail(verifyFail)
+                    .setPrioritizeLocalGroupId(prioritizeLocalGroupId)
+                    .setPrioritizedDependencyGroups(dependencyPriorityGroups)
+                    .setPrioritizedPluginGroups(pluginPriorityGroups)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
