@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.emergent.sortpom</groupId>
     <artifactId>sortpom-parent</artifactId>
-    <version>2.11.1-em-2-SNAPSHOT</version>
+    <version>2.11.1-em-2</version>
   </parent>
 
   <!-- Basics -->
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>org.emergent.sortpom</groupId>
       <artifactId>sortpom-sorter</artifactId>
-      <version>2.11.1-em-2-SNAPSHOT</version>
+      <version>2.11.1-em-2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
