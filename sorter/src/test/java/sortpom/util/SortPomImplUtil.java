@@ -36,6 +36,7 @@ public class SortPomImplUtil {
     private String encoding = "UTF-8";
     private File testpom;
     private String violationFile;
+    private String groupId;
 
     private SortPomImplUtil() {
     }
@@ -135,6 +136,11 @@ public class SortPomImplUtil {
             assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Saving violation report to "));
         }
         return index;
+    }
+
+    public SortPomImplUtil setGroupId(String groupId) {
+        this.groupId = groupId;
+        return this;
     }
 
     public SortPomImplUtil nrOfIndentSpace(int indent) {
@@ -239,6 +245,7 @@ public class SortPomImplUtil {
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)
+                .setPrioritizedDependencyGroups(groupId)
                 .build();
     }
 

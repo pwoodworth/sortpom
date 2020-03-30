@@ -3,6 +3,7 @@ package sortpom;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 
@@ -10,6 +11,9 @@ import java.io.File;
  * Common parent for both SortMojo and VerifyMojo
  */
 abstract class AbstractParentMojo extends AbstractMojo {
+
+    @Parameter(property = "project", readonly=true, required=true)
+    MavenProject mavenProject;
 
     /**
      * This is the File instance that refers to the location of the pom that
@@ -119,6 +123,24 @@ abstract class AbstractParentMojo extends AbstractMojo {
      */
     @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
     boolean keepTimestamp;
+
+    /**
+     * Comma-separated ordered list how plugins should be sorted.
+     */
+    @Parameter(property = "sort.pluginPriorityGroups")
+    protected String pluginPriorityGroups;
+
+    /**
+     * Comma-separated ordered list of groups that should be prioritized in sort.
+     */
+    @Parameter(property = "sort.dependencyPriorityGroups")
+    protected String dependencyPriorityGroups;
+
+    /**
+     * Whether to automatically add the local group id to {@link #dependencyPriorityGroups}
+     */
+    @Parameter(property = "sort.prioritizeLocalGroupId", defaultValue = "false")
+    protected boolean prioritizeLocalGroupId;
 
     final SortPomImpl sortPomImpl = new SortPomImpl();
 

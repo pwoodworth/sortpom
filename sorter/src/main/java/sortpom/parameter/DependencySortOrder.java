@@ -1,8 +1,13 @@
 package sortpom.parameter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * The plugin parameter 'sortDependencies' is parsed by this class to determine if dependencies should be sorted
@@ -13,6 +18,7 @@ import java.util.Collections;
  */
 public class DependencySortOrder {
     private final String childElementNameList;
+    private final List<String> prioritizedGroups;
     private Collection<String> childElementNames;
 
     /**
@@ -21,7 +27,29 @@ public class DependencySortOrder {
      * @param childElementNameList the plugin parameter argument
      */
     public DependencySortOrder(String childElementNameList) {
+        this(childElementNameList, Collections.emptyList());
+    }
+
+    /**
+     * Create an instance of the DependencySortOrder
+     *
+     * @param childElementNameList the plugin parameter argument
+     */
+    public DependencySortOrder(String childElementNameList, String prioritizedGroups) {
+        this(childElementNameList, splitToList(prioritizedGroups));
+    }
+
+    public DependencySortOrder(String childElementNameList, List<String> prioritizedGroups) {
         this.childElementNameList = childElementNameList == null ? "" : childElementNameList;
+        this.prioritizedGroups = Collections.unmodifiableList(new ArrayList<>(new LinkedHashSet<>(prioritizedGroups)));
+    }
+
+    private static List<String> splitToList(String list) {
+        return Optional.ofNullable(list)
+                .map(val -> Arrays.stream(val.split(","))
+                        .filter(s -> !s.isEmpty())
+                        .collect(Collectors.toList()))
+                .orElseGet(ArrayList::new);
     }
 
     /**
@@ -50,6 +78,10 @@ public class DependencySortOrder {
             return new String[0];
         }
         return list.split(";|,|:");
+    }
+
+    public List<String> getPrioritizedGroups() {
+        return prioritizedGroups;
     }
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */
