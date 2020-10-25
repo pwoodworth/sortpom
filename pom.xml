@@ -508,13 +508,13 @@
     <url>https://github.com/emergentdotorg/sortpom/issues</url>
   </issueManagement>
 
-  <distributionManagement>
-    <repository>
-      <id>github-emergentdotorg</id>
-      <name>GitHub Emergent.org Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/emergentdotorg/maven-repository</url>
-    </repository>
-  </distributionManagement>
+<!--  <distributionManagement>-->
+<!--    <repository>-->
+<!--      <id>github-emergentdotorg</id>-->
+<!--      <name>GitHub Emergent.org Apache Maven Packages</name>-->
+<!--      <url>https://maven.pkg.github.com/emergentdotorg/maven-repository</url>-->
+<!--    </repository>-->
+<!--  </distributionManagement>-->
 
   <repositories>
     <repository>
