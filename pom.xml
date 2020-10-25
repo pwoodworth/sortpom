@@ -6,7 +6,7 @@
   <!-- Basics -->
   <groupId>org.emergent.sortpom</groupId>
   <artifactId>sortpom-parent</artifactId>
-  <version>2.11.1-em-3-SNAPSHOT</version>
+  <version>2.11.1-em-3</version>
   <packaging>pom</packaging>
   <name>SortPom</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>
@@ -500,7 +500,7 @@
     <connection>scm:git:https://github.com/pwoodworth/sortpom.git</connection>
     <developerConnection>scm:git:https://github.com/pwoodworth/sortpom.git</developerConnection>
     <url>https://github.com/pwoodworth/sortpom</url>
-    <tag>HEAD</tag>
+    <tag>2.11.1-em-3</tag>
   </scm>
 
   <issueManagement>
