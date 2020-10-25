@@ -33,4 +33,4 @@ jobs:
           MAVEN_REPO_SERVER_PASSWORD: ${{ secrets.MAVEN_REPO_SERVER_PASSWORD }}
           MAVEN_RELEASE_ARGUMENTS: >
             -DaltDeploymentRepository=github::https://maven.pkg.github.com/pwoodworth/maven-repository
-            -Darchetype.test.skip=true
+            -Pdistribution
